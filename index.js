@@ -4,8 +4,7 @@ const tweetsData = [
     profilePic: `images/troll.png`,
     likes: 27,
     retweets: 10,
-    tweetText: `Buy Bitcoin, ETH Make 💰💰💰 low low prices. 
-            Guaranteed return on investment. HMU DMs open!!`,
+    tweetText: `Invest in my revolutionary crypto coin: $FEATHER. It guarantees lift-off! 🚀🌙 Low, low prices (for now). DMs open for financial advice!`,
     replies: [],
     isLiked: false,
     isRetweeted: false,
@@ -16,7 +15,7 @@ const tweetsData = [
     profilePic: `images/musk.png`,
     likes: 6500,
     retweets: 234,
-    tweetText: `I need volunteers for a one-way mission to Mars 🪐. No experience necessary🚀`,
+    tweetText: `Looking for brave volunteers for a one-way trip to Mars 🪐. Must be proficient in both rocket science and meme creation. Serious applicants only. 🚀`,
     replies: [
       {
         handle: `@TomCruise ✅`,
@@ -38,7 +37,7 @@ const tweetsData = [
     profilePic: `images/flower.jpg`,
     likes: 10,
     retweets: 3,
-    tweetText: `Are you a coder if you only know HTML?`,
+    tweetText: `I just spent 4 hours fixing a typo. Is this what being a developer is? Asking for a friend (it's me).`,
     replies: [
       {
         handle: `@StackOverflower ☣️`,
