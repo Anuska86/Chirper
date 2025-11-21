@@ -20,12 +20,12 @@ const tweetsData = [
       {
         handle: `@TomCruise ✅`,
         profilePic: `images/cruise.png`,
-        tweetText: `Yes! Sign me up! 😎🛩`,
+        tweetText: `I only fly vertical. Does Mars have an atmosphere I can impossibly eject from? 😎🛩`,
       },
       {
         handle: `@ChuckNorris ✅`,
         profilePic: `images/chuck_norris.png`,
-        tweetText: `I went last year😴`,
+        tweetText: `Mars is just a temporary stop on my way to Andromeda. Ask your engineers.`,
       },
     ],
     isLiked: false,
@@ -42,12 +42,12 @@ const tweetsData = [
       {
         handle: `@StackOverflower ☣️`,
         profilePic: `images/overflow.png`,
-        tweetText: `No. Onviosuly not. Go get a job in McDonald's.`,
+        tweetText: `Only 4 hours? That's amateur. Now, go learn Docker and then try again, noob.`,
       },
       {
         handle: `@YummyCoder64`,
         profilePic: `images/love.png`,
-        tweetText: `You are wonderful just as you are! ❤️`,
+        tweetText: `Don't worry! That's called 'paying down technical debt.' You're an engineer! ❤️`,
       },
     ],
     isLiked: false,
