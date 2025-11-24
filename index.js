@@ -7,9 +7,9 @@ tweetBtn.addEventListener("click", function () {
   console.log(tweetInput.value);
 });
 
-let feedHtml = "";
-
 function getFeedHtml() {
+  let feedHtml = "";
+
   for (let tweet of tweetsData) {
     feedHtml += `<div class="tweet">
     <div class="tweet-inner">
@@ -33,7 +33,7 @@ function getFeedHtml() {
 </div>`;
   }
 
-  console.log(feedHtml);
+  return feedHtml;
 }
 
 getFeedHtml();
