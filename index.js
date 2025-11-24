@@ -2,6 +2,7 @@ import { tweetsData } from "./data.js";
 
 const tweetInput = document.getElementById("tweet-input");
 const tweetBtn = document.getElementById("tweet-btn");
+const feedDiv = document.getElementById("feed");
 
 tweetBtn.addEventListener("click", function () {
   console.log(tweetInput.value);
@@ -36,4 +37,8 @@ function getFeedHtml() {
   return feedHtml;
 }
 
-getFeedHtml();
+function render() {
+  feedDiv.innerHTML = getFeedHtml();
+}
+
+render();
