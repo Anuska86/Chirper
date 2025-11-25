@@ -40,8 +40,8 @@ export const tweetsData = [
     tweetText: `I just spent 4 hours fixing a typo. Is this what being a developer is? Asking for a friend (it's me).`,
     replies: [
       {
-        handle: `@StackOverflower ☣️`,
-        profilePic: `images/overflow.png`,
+        handle: `@Susuwatari `,
+        profilePic: `images/susuwatari.jpg`,
         tweetText: `Only 4 hours? That's amateur. Now, go learn Docker and then try again, noob.`,
       },
       {
