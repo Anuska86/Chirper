@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
-  background: linear-gradient(180deg, #ccdceb, #e6dede);
+  background: linear-gradient(180deg, #a8d0e6, #f76c6c);
   min-height: 100vh;
 }
 
@@ -12,7 +12,9 @@ body {
 h1 {
   color: #0f8cdf;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 24px;
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 
 i {
@@ -22,6 +24,12 @@ i {
 
 .fa-solid {
   color: #999;
+}
+
+.fa-heart.liked,
+.fa-retweet.retweeted {
+  transform: scale(1.2);
+  transition: transform 0.2s ease;
 }
 
 .liked {
@@ -79,6 +87,12 @@ button {
   font-weight: 600;
 }
 
+button:hover {
+  background-color: #0d8ddb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
 /* tweet */
 
 .tweet {
@@ -86,6 +100,12 @@ button {
   padding: 20px 0 0 0;
   width: 100%;
   margin: 15px 0;
+}
+
+.tweet:hover {
+  background-color: #f0f8ff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease-in-out;
 }
 
 .tweet-inner {
@@ -107,10 +127,10 @@ button {
 }
 
 .tweet-reply {
-  border-top: 1px solid lightgray;
-  padding: 20px 0 0 0px;
-  margin: 10px 0 10px 40px;
-  width: 80%;
+  background: #f9fcff;
+  border-left: 3px solid #1da1f2;
+  border-radius: 6px;
+  padding: 10px 15px;
 }
 
 .handle {
@@ -121,9 +141,9 @@ button {
 }
 
 .tweet-text {
-  width: 207px;
-  font-size: 14px;
-  line-height: 20px;
+  width: auto;
+  max-width: 400px;
+  line-height: 1.6;
 }
 
 /* images */
