@@ -138,6 +138,13 @@ button:hover {
   border-left: 3px solid #1da1f2;
   border-radius: 6px;
   padding: 10px 15px;
+  margin-top: 20px;
+}
+
+.tweet-reply:hover {
+  background-color: #f0f8ff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease-in-out;
 }
 
 .handle {
@@ -267,10 +274,5 @@ button:hover {
     width: 100%;
     justify-content: space-around;
     margin-top: 10px;
-  }
-
-  .tweet-reply {
-    margin-left: 0;
-    width: 100%;
   }
 }

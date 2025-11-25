@@ -1,17 +1,20 @@
-import { tweetsData } from "./data.js";
+import { tweetsData as seedTweets } from "./data.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
 const tweetInput = document.getElementById("tweet-input");
 
+// Load from localStorage or seed data
+let tweetsData = JSON.parse(localStorage.getItem("chirperTweets")) || seedTweets;
+
+function saveToLocalStorage() {
+  localStorage.setItem("chirperTweets", JSON.stringify(tweetsData));
+}
+
 document.addEventListener("click", (e) => {
   if (e.target.dataset.like) {
     handleLikeClick(e.target.dataset.like);
-    isLiked = !isLiked;
-    render();
   } else if (e.target.dataset.retweet) {
     handleRetweetClick(e.target.dataset.retweet);
-    isRetweeted = !isRetweeted;
-    render();
   } else if (e.target.dataset.reply) {
     handleReplyClick(e.target.dataset.reply);
   } else if (e.target.id === "tweet-btn") {
@@ -19,11 +22,14 @@ document.addEventListener("click", (e) => {
   } else if (e.target.classList.contains("reply-btn")) {
     e.preventDefault();
     handleAddReplyClick(e.target.dataset.replyTo);
+  } else if (e.target.dataset.deleteTweet) {
+    handleDeleteTweet(e.target.dataset.deleteTweet);
+  } else if (e.target.dataset.deleteReply) {
+    handleDeleteReply(e.target.dataset.deleteReply);
   }
 });
 
 //Keydown listener
-
 document.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     if (e.target.id === "tweet-input") {
@@ -38,32 +44,30 @@ document.addEventListener("keydown", (e) => {
 });
 
 //Tweet Btn handle
-
 function handleTweetBtnClick() {
-  if (tweetInput.value) {
+  if (tweetInput.value.trim()) {
     tweetsData.unshift({
       handle: `@NinjaCat`,
       profilePic: `images/ninja-cat.jpg`,
       likes: 0,
       retweets: 0,
-      tweetText: tweetInput.value,
+      tweetText: tweetInput.value.trim(),
       replies: [],
       isLiked: false,
       isRetweeted: false,
       uuid: uuidv4(),
     });
-  }
 
-  render();
-  tweetInput.value = "";
+    saveToLocalStorage();
+    tweetInput.value = "";
+    render();
+  }
 }
 
 //Like handle
-
 function handleLikeClick(tweetId) {
-  const targetTweetObj = tweetsData.filter((tweet) => {
-    return tweet.uuid === tweetId;
-  })[0];
+  const targetTweetObj = tweetsData.find((tweet) => tweet.uuid === tweetId);
+  if (!targetTweetObj) return;
 
   if (targetTweetObj.isLiked) {
     targetTweetObj.likes--;
@@ -71,14 +75,14 @@ function handleLikeClick(tweetId) {
     targetTweetObj.likes++;
   }
   targetTweetObj.isLiked = !targetTweetObj.isLiked;
+  saveToLocalStorage();
   render();
 }
 
 //Retweet handle
 function handleRetweetClick(tweetId) {
-  const targetTweetObj = tweetsData.filter((tweet) => {
-    return tweet.uuid === tweetId;
-  })[0];
+  const targetTweetObj = tweetsData.find((tweet) => tweet.uuid === tweetId);
+  if (!targetTweetObj) return;
 
   if (targetTweetObj.isRetweeted) {
     targetTweetObj.retweets--;
@@ -86,17 +90,18 @@ function handleRetweetClick(tweetId) {
     targetTweetObj.retweets++;
   }
   targetTweetObj.isRetweeted = !targetTweetObj.isRetweeted;
+  saveToLocalStorage();
   render();
 }
 
 // Reply handle
-
 function handleReplyClick(replyId) {
   const repliesContainer = document.getElementById(`replies-${replyId}`);
+  if (!repliesContainer) return;
 
   repliesContainer.classList.toggle("hidden");
 
-  //Check if the reply input has or not has been injected
+  // Inject reply input only once
   if (!repliesContainer.querySelector(".reply-input-area")) {
     const replyHtml = `<div class="tweet-input-area reply-input-area">
                 <img src="images/chirper-logo.jpg" class="profile-pic" />
@@ -113,10 +118,12 @@ function handleReplyClick(replyId) {
 
 function handleAddReplyClick(tweetId) {
   const replyInput = document.getElementById(`reply-input-${tweetId}`);
+  if (!replyInput) return;
   const replyContent = replyInput.value.trim();
 
   if (replyContent.length > 0) {
     const targetTweetObj = tweetsData.find((tweet) => tweet.uuid === tweetId);
+    if (!targetTweetObj) return;
 
     targetTweetObj.replies.unshift({
       handle: `@NinjaCat`,
@@ -124,6 +131,7 @@ function handleAddReplyClick(tweetId) {
       tweetText: replyContent,
     });
 
+    saveToLocalStorage();
     replyInput.value = "";
 
     document
@@ -131,22 +139,40 @@ function handleAddReplyClick(tweetId) {
       .scrollIntoView({ behavior: "smooth" });
 
     render();
-
     document.getElementById(`replies-${tweetId}`).classList.remove("hidden");
+  }
+}
+
+//Delete
+function handleDeleteTweet(tweetId) {
+  tweetsData = tweetsData.filter((t) => t.uuid !== tweetId);
+  saveToLocalStorage();
+  render();
+}
+
+function handleDeleteReply(payload) {
+  const [tweetId, replyIndexStr] = payload.split("|");
+  const replyIndex = parseInt(replyIndexStr, 10);
+  const targetTweet = tweetsData.find((t) => t.uuid === tweetId);
+  if (!targetTweet) return;
+  if (replyIndex >= 0 && replyIndex < targetTweet.replies.length) {
+    targetTweet.replies.splice(replyIndex, 1);
+    saveToLocalStorage();
+    render();
   }
 }
 
 //Html
 function getFeedHtml() {
-  const renderReplies = (replies) =>
+  const renderReplies = (replies, tweetUuid) =>
     replies
       .map(
-        (reply) => `
+        (reply, idx) => `
       <div class="tweet-reply">
         <div class="tweet-inner">
           <img src="${reply.profilePic}" class="profile-pic">
           <div>
-            <p class="handle">${reply.handle}</p>
+            <p class="handle">${reply.handle} <i class="fa-solid fa-trash" data-delete-reply="${tweetUuid}|${idx}" title="Delete reply" style="cursor:pointer;font-size:0.9rem;color:#999;margin-left:8px;"></i></p>
             <p class="tweet-text">${reply.tweetText}</p>
           </div>
         </div>
@@ -158,14 +184,14 @@ function getFeedHtml() {
   const renderTweet = (tweet) => {
     const heartClass = tweet.isLiked ? "liked" : "";
     const retweetClass = tweet.isRetweeted ? "retweeted" : "";
-    const repliesHtml = renderReplies(tweet.replies);
+    const repliesHtml = renderReplies(tweet.replies, tweet.uuid);
 
     return `
       <div class="tweet">
         <div class="tweet-inner">
           <img src="${tweet.profilePic}" class="profile-pic">
           <div>
-            <p class="handle">${tweet.handle}</p>
+            <p class="handle">${tweet.handle} <i class="fa-solid fa-trash" data-delete-tweet="${tweet.uuid}" title="Delete tweet" style="cursor:pointer;font-size:0.9rem;color:#999;margin-left:8px;"></i></p>
             <p class="tweet-text">${tweet.tweetText}</p>
             <div class="tweet-details">
               <span class="tweet-detail">
