@@ -55,8 +55,16 @@ header {
 
 .tweet-input-area {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
+  margin-bottom: 20px;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 /* textareas + btn */
@@ -72,7 +80,6 @@ textarea {
   background-color: #f7faff;
   border: 1px solid #1da1f2;
   border-radius: 4px;
-  margin-top: 20px;
 }
 
 button {
@@ -148,12 +155,28 @@ button:hover {
 
 /* images */
 
+.chirper-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #1da1f2;
+}
+
+.chirper-logo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(15, 140, 223, 0.3);
+  transition: all 0.3s ease;
+}
+
 .profile-pic {
   border: 1px solid #1da1f2;
   border-radius: 50%;
   width: 48px;
   height: 48px;
   object-fit: cover;
+  align-self: flex-start;
+  margin-top: 5px;
 }
 
 /* utility */
@@ -173,4 +196,81 @@ button:hover {
   padding: 30px;
   overflow-y: auto;
   background-color: #f7faff;
+}
+
+/*Media*/
+
+@media (max-width: 600px) {
+  body {
+    background: linear-gradient(180deg, #dceefb, #fef6f6);
+    font-size: 16px;
+  }
+
+  .tablet-frame {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 20px;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 22px;
+    margin-top: 10px;
+  }
+
+  .chirper-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .tweet-input-area {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+
+  textarea {
+    font-size: 16px;
+    height: 80px;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .tweet-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tweet-text {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .tweet-details {
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+
+  .tweet-reply {
+    margin-left: 0;
+    width: 100%;
+  }
 }
