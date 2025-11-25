@@ -22,21 +22,22 @@ document.addEventListener("click", (e) => {
 //Tweet Btn handle
 
 function handleTweetBtnClick() {
-  console.log(tweetInput.value);
-
-  tweetsData.unshift({
-    handle: `@NinjaCat`,
-    profilePic: `images/ninja-cat.jpg`,
-    likes: 0,
-    retweets: 0,
-    tweetText: tweetInput.value,
-    replies: [],
-    isLiked: false,
-    isRetweeted: false,
-    uuid: uuidv4(),
-  });
+  if (tweetInput.value) {
+    tweetsData.unshift({
+      handle: `@NinjaCat`,
+      profilePic: `images/ninja-cat.jpg`,
+      likes: 0,
+      retweets: 0,
+      tweetText: tweetInput.value,
+      replies: [],
+      isLiked: false,
+      isRetweeted: false,
+      uuid: uuidv4(),
+    });
+  }
 
   render();
+  tweetInput.value = "";
 }
 
 //Like handle
