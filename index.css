@@ -26,18 +26,54 @@ i {
   color: #999;
 }
 
-.fa-heart.liked,
-.fa-retweet.retweeted {
-  transform: scale(1.2);
-  transition: transform 0.2s ease;
-}
-
 .liked {
   color: red;
 }
 
 .retweeted {
   color: rgb(71, 124, 223);
+}
+
+.fa-heart.liked,
+.fa-retweet.retweeted {
+  transform: scale(1.2);
+  transition: transform 0.2s ease;
+}
+
+/*Comments icon*/
+
+.fa-regular.fa-comment-dots:hover {
+  color: #1da1f2;
+  transform: scale(1.08);
+}
+
+/*Heart icon*/
+
+.fa-solid.fa-heart {
+  color: rgb(223, 140, 140);
+}
+
+.fa-solid.fa-heart:hover {
+  transform: scale(1.12);
+  color: #e0245e;
+}
+
+/*Retweet icon*/
+
+.fa-solid.fa-retweet {
+  color: rgb(79, 167, 218);
+}
+
+.fa-solid.fa-retweet:hover {
+  color: rgb(219, 159, 29);
+  transform: scale(1.06);
+}
+
+/*Trash icon*/
+
+.fa-solid.fa-trash:hover {
+  color: #e74c3c;
+  transform: scale(1.06);
 }
 
 /* layout */
@@ -100,6 +136,44 @@ button:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+button:focus,
+.reply-btn:focus,
+.fa-solid:focus,
+.fa-regular:focus {
+  outline: 3px solid rgba(29, 161, 242, 0.18);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.reply-btn {
+  padding: 8px 12px;
+  width: auto;
+  border-radius: 12px;
+  font-size: 14px;
+  background: #ffffff;
+  color: #1da1f2;
+  border: 1px solid #1da1f2;
+  cursor: pointer;
+  display: block;
+  margin: 8px auto 0;
+  text-align: center;
+}
+.reply-btn:hover {
+  background: #e8f6ff;
+  transform: translateY(-1px);
+}
+
+.reply-input-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.reply-input-area textarea {
+  width: 100%;
+  max-width: 520px;
+}
+
 /* tweet */
 
 .tweet {
@@ -107,6 +181,7 @@ button:hover {
   padding: 20px 0 0 0;
   width: 100%;
   margin: 15px 0;
+  transform: translateY(-2px);
 }
 
 .tweet:hover {
@@ -130,7 +205,9 @@ button:hover {
 
 .tweet-detail {
   display: flex;
-  gap: 4px;
+  gap: 12px;
+  font-size: 13px;
+  align-items: center;
 }
 
 .tweet-reply {
@@ -158,6 +235,18 @@ button:hover {
   width: auto;
   max-width: 400px;
   line-height: 1.6;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.tweet,
+.tweet-reply,
+.tweet-inner img,
+.fa-solid,
+.fa-regular,
+button,
+.reply-btn {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
 }
 
 /* images */
@@ -184,6 +273,7 @@ button:hover {
   object-fit: cover;
   align-self: flex-start;
   margin-top: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 /* utility */
@@ -274,5 +364,26 @@ button:hover {
     width: 100%;
     justify-content: space-around;
     margin-top: 10px;
+  }
+
+  /* Dark-mode fallback for users who prefer it */
+  @media (prefers-color-scheme: dark) {
+    body {
+      background: linear-gradient(180deg, #071427, #0b1220);
+      color: #e6eef8;
+    }
+    .tablet-frame {
+      background: #071427;
+      border-color: #16202b;
+    }
+    textarea {
+      background: #04202a;
+      color: #e6eef8;
+      border-color: #2b8be6;
+    }
+    .tweet-reply {
+      background: rgba(255, 255, 255, 0.03);
+      border-left-color: #1da1f2;
+    }
   }
 }
