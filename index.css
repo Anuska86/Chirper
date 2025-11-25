@@ -3,6 +3,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
+  background: linear-gradient(180deg, #ccdceb, #e6dede);
+  min-height: 100vh;
 }
 
 /* typography and icons */
@@ -34,8 +36,9 @@ i {
 
 main,
 header {
-  width: 290px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 header {
@@ -132,4 +135,18 @@ button {
 /* utility */
 .hidden {
   display: none;
+}
+
+/*tablet frame*/
+
+.tablet-frame {
+  width: 600px;
+  min-height: 800px;
+  margin: 40px auto;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  overflow-y: auto;
+  background-color: #f7faff;
 }
