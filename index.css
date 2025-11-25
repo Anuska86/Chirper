@@ -76,6 +76,29 @@ i {
   transform: scale(1.06);
 }
 
+/*Emojis*/
+.emoji-toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.emoji-btn {
+  width: auto;
+  padding: 6px 10px;
+  font-size: 18px;
+  background: #f0f8ff;
+  border: 1px solid #1da1f2;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.emoji-btn:hover {
+  background: #e8f6ff;
+  transform: scale(1.1);
+}
 /* layout */
 
 main,

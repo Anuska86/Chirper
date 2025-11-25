@@ -4,14 +4,24 @@ import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 const tweetInput = document.getElementById("tweet-input");
 
 // Load from localStorage or seed data
-let tweetsData = JSON.parse(localStorage.getItem("chirperTweets")) || seedTweets;
+let tweetsData =
+  JSON.parse(localStorage.getItem("chirperTweets")) || seedTweets;
 
 function saveToLocalStorage() {
   localStorage.setItem("chirperTweets", JSON.stringify(tweetsData));
 }
 
 document.addEventListener("click", (e) => {
-  if (e.target.dataset.like) {
+  if (e.target.classList.contains("emoji-btn")) {
+    const emoji = e.target.dataset.emoji;
+    const textarea = e.target
+      .closest(".tweet-input-area")
+      ?.querySelector("textarea");
+    if (textarea) {
+      textarea.value += emoji;
+      textarea.focus();
+    }
+  } else if (e.target.dataset.like) {
     handleLikeClick(e.target.dataset.like);
   } else if (e.target.dataset.retweet) {
     handleRetweetClick(e.target.dataset.retweet);
