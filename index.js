@@ -16,21 +16,24 @@ document.addEventListener("click", (e) => {
     handleReplyClick(e.target.dataset.reply);
   } else if (e.target.id === "tweet-btn") {
     handleTweetBtnClick();
-  } else if (e.target.dataset.reply) {
-    handleReplyClick(e.target.dataset.reply);
-  } else if (e.target.id === "tweet-btn") {
-    handleTweetBtnClick();
   } else if (e.target.classList.contains("reply-btn")) {
+    e.preventDefault();
     handleAddReplyClick(e.target.dataset.replyTo);
   }
 });
 
-//Textarea
+//Keydown listener
 
-tweetInput.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    e.preventDefault();
-    handleTweetBtnClick();
+    if (e.target.id === "tweet-input") {
+      e.preventDefault();
+      handleTweetBtnClick();
+    } else if (e.target.id.startsWith("reply-input-")) {
+      e.preventDefault();
+      const tweetUUID = e.target.id.substring(12);
+      handleAddReplyClick(tweetUUID);
+    }
   }
 });
 
@@ -94,7 +97,7 @@ function handleReplyClick(replyId) {
   repliesContainer.classList.toggle("hidden");
 
   //Check if the reply input has or not has been injected
-  if (!repliesContainer.querySelector("reply-input-area")) {
+  if (!repliesContainer.querySelector(".reply-input-area")) {
     const replyHtml = `<div class="tweet-input-area reply-input-area">
                 <img src="images/chirper-logo.jpg" class="profile-pic" />
                 <textarea
@@ -102,21 +105,18 @@ function handleReplyClick(replyId) {
                     placeholder="Chirp your reply!"
                 ></textarea>
             </div>
-            <button class="reply-btn" data-reply-to="${replyId}">Reply</button>`;
+            <button class="reply-btn" type="button" data-reply-to="${replyId}">Reply</button>`;
 
     repliesContainer.innerHTML += replyHtml;
   }
 }
 
 function handleAddReplyClick(tweetId) {
-  const replyInput = document.getElementById("reply-input-${tweetId}");
-  const replyContent = replyInput.value;
-  const trimmedContent = replyContent.trim();
+  const replyInput = document.getElementById(`reply-input-${tweetId}`);
+  const replyContent = replyInput.value.trim();
 
-  if (trimmedContent.length > 0) {
-    const targetTweetObj = tweetsData.filter((tweet) => {
-      return tweet.uuid === tweetId;
-    })[0];
+  if (replyContent.length > 0) {
+    const targetTweetObj = tweetsData.find((tweet) => tweet.uuid === tweetId);
 
     targetTweetObj.replies.unshift({
       handle: `@NinjaCat`,
@@ -126,9 +126,13 @@ function handleAddReplyClick(tweetId) {
 
     replyInput.value = "";
 
-    document.getElementById(`replies-${tweetId}`).classList.add("hidden");
+    document
+      .getElementById(`replies-${tweetId}`)
+      .scrollIntoView({ behavior: "smooth" });
 
     render();
+
+    document.getElementById(`replies-${tweetId}`).classList.remove("hidden");
   }
 }
 
