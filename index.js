@@ -1,11 +1,6 @@
 import { tweetsData } from "./data.js";
 
 const tweetInput = document.getElementById("tweet-input");
-const tweetBtn = document.getElementById("tweet-btn");
-
-tweetBtn.addEventListener("click", () => {
-  console.log(tweetInput.value);
-});
 
 document.addEventListener("click", (e) => {
   if (e.target.dataset.like) {
@@ -18,8 +13,16 @@ document.addEventListener("click", (e) => {
     render();
   } else if (e.target.dataset.reply) {
     handleReplyClick(e.target.dataset.reply);
+  } else if (e.target.id === "tweet-btn") {
+    handleTweetBtnClick();
   }
 });
+
+//Tweet Btn handle
+
+function handleTweetBtnClick() {
+  console.log(tweetInput.value);
+}
 
 //Like handle
 
