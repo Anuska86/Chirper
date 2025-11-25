@@ -115,6 +115,16 @@ function handleReplyClick(replyId) {
   if (!repliesContainer.querySelector(".reply-input-area")) {
     const replyHtml = `<div class="tweet-input-area reply-input-area">
                 <img src="images/chirper-logo.jpg" class="profile-pic" />
+
+                    <!-- Emoji toolbar for replies -->
+                <div class="emoji-toolbar">
+                  <button type="button" class="emoji-btn" data-emoji="😂">😂</button>
+                  <button type="button" class="emoji-btn" data-emoji="❤️">❤️</button>
+                  <button type="button" class="emoji-btn" data-emoji="🔥">🔥</button>
+                  <button type="button" class="emoji-btn" data-emoji="🚀">🚀</button>
+                  <button type="button" class="emoji-btn" data-emoji="👍">👍</button>
+                  <button type="button" class="emoji-btn" data-emoji="💯">💯</button>
+                </div>
                 <textarea
                     id="reply-input-${replyId}"
                     placeholder="Chirp your reply!"
