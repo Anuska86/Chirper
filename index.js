@@ -54,7 +54,7 @@ function handleRetweetClick(tweetId) {
 
 // Reply handle
 
-function handleLikeClick(replyId) {
+function handleReplyClick(replyId) {
   document.getElementById(`replies-${replyId}`).classList.toggle("hidden");
 }
 
