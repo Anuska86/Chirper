@@ -1,8 +1,10 @@
 # Chirper
 
-# Chirper
-
 A Twitter/X-like social media app built with vanilla JavaScript. Create tweets, reply to tweets, like, retweet, and manage your posts with persistent localStorage.
+
+![Logo](/images/chirper-logo.jpg)
+![Main View](/images/main.png)
+![Reply](/images/reply.png)
 
 ## Features
 
